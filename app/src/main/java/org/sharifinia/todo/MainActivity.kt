@@ -2,13 +2,9 @@ package org.sharifinia.todo
 
 
 import android.os.Bundle
-import android.text.style.AlignmentSpan
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
@@ -20,17 +16,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import org.sharifinia.todo.models.DayModel
-import org.sharifinia.todo.models.MonthModel
-import org.sharifinia.todo.models.Task
-import org.sharifinia.todo.models.TodoCategory
+import org.sharifinia.todo.feature.Statistics
+import org.sharifinia.todo.models.*
 import org.sharifinia.todo.ui.theme.Shapes
 import org.sharifinia.todo.ui.theme.TodoTheme
 
@@ -52,17 +49,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
 @Composable
 fun CategoryList(
     modifier: Modifier = Modifier,
     categoryList: List<TodoCategory>
 ) {
-    LazyRow(modifier=Modifier.padding(8.dp)) {
+    LazyRow(modifier = Modifier.padding(8.dp)) {
         items(categoryList) {
             CategoryItem(item = it, modifier)
             Spacer(modifier = Modifier.width(8.dp))
@@ -78,21 +71,21 @@ fun CategoryItem(item: TodoCategory, modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .defaultMinSize(50.dp, 50.dp)
-            .background(Color(item.color), shape = Shapes.small)
+            .background(EColor.convertColor(item.color,500), shape = Shapes.small)
 
 
     ) {
-        Box(modifier= Modifier
-            .defaultMinSize(70.dp, 50.dp)
-            .clip(Shapes.small)
-            .background(Color(item.color))
-            .border(BorderStroke(1.dp, Color.Black), RectangleShape)
-            ,
+        Box(
+            modifier = Modifier
+                .defaultMinSize(70.dp, 50.dp)
+                .clip(Shapes.small)
+                .background(EColor.convertColor(item.color,500))
+                .border(BorderStroke(1.dp, Color.Black), RectangleShape),
             contentAlignment = Alignment.Center,
 
 //            horizontalAlignment = Alignment.CenterHorizontally,
 //            verticalArrangement = Arrangement.Center
-            ) {
+        ) {
             Text(text = item.name)
         }
 
@@ -177,6 +170,8 @@ fun TodoItem(item: Task, modifier: Modifier = Modifier) {
 }
 
 
+
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
@@ -185,7 +180,7 @@ fun DefaultPreview() {
     for (c in 1..8) {
         cats.add(
             TodoCategory(
-                name = "cat$c", color = 0xFFFAFFFF
+                name = "cat$c", color = EColor.Brown
             )
         )
     }
@@ -198,7 +193,8 @@ fun DefaultPreview() {
                     1 * t,
                     2, 11, 2022, MonthModel.Current
 
-                ), 2
+                ), 2,
+                TimeTask(11,30,12,30)
             )
         )
 
@@ -207,23 +203,24 @@ fun DefaultPreview() {
 
     TodoTheme {
         Scaffold(
-            floatingActionButton = {
 
-                FloatingActionButton(onClick = { /*TODO*/ }) {
-                    Text(text = "+", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-                }
-            }
-    
+//            floatingActionButton = {
+//
+//                FloatingActionButton(onClick = { /*TODO*/ }) {
+//                    Text(text = "+", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+//                }
+//            }
 
 
         ) {
 
 
             Column() {
-                Spacer(modifier = Modifier.height(16.dp))
-                CategoryList(categoryList = cats, modifier = Modifier.fillMaxWidth())
-                Spacer(modifier = Modifier.height(16.dp))
-                TodoList(todoList = tasks, modifier = Modifier.fillMaxWidth())
+//                Statistics()
+//                Spacer(modifier = Modifier.height(16.dp))
+//                CategoryList(categoryList = cats, modifier = Modifier.fillMaxWidth())
+//                Spacer(modifier = Modifier.height(16.dp))
+//                TodoList(todoList = tasks, modifier = Modifier.fillMaxWidth())
 
             }
 

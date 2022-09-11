@@ -1,26 +1,52 @@
-package org.sharifinia.todo.feature.mainscreen
+package org.sharifinia.todo.feature
 
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import org.sharifinia.todo.feature.Projects
-import org.sharifinia.todo.feature.ShowTasksList
+import androidx.compose.ui.unit.dp
 import org.sharifinia.todo.models.*
 import org.sharifinia.todo.ui.theme.TodoTheme
 import kotlin.random.Random
 
 @Composable
-fun MainScreen(){
+fun MainScreen(categoriesWithTasks:List<CategoryWithTasks>,
+               categories:List<TodoCategory>,
+               tasks:List<Task>
 
+){
+    TodoTheme {
+        Column(Modifier.padding(16.dp)) {
+            Statistics(categoriesWithTasks)
+//            GPreview()
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Projects",style=MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(16.dp))
+            Projects(tasks = tasks, cats = categories)
+//            JPreview()
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Tasks",style=MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(16.dp))
+            ShowTasksList(tasks = tasks)
+//            TaskPreview()
+        }
+    }
 
 
 
 
 }
 
-@Preview
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MainPreview() {
     val cats = mutableListOf<TodoCategory>()
@@ -67,9 +93,15 @@ fun MainPreview() {
     }
 
     TodoTheme {
-        Column() {
+        Column(Modifier.padding(16.dp)) {
             Statistics(catTasks)
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Projects",style=MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(16.dp))
             Projects(tasks = tasks, cats = cats)
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text = "Tasks",style=MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
+            Spacer(modifier = Modifier.height(16.dp))
             ShowTasksList(tasks = tasks)
         }
     }

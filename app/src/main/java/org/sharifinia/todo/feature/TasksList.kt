@@ -2,6 +2,7 @@ package org.sharifinia.todo.feature
 
 import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -30,21 +31,22 @@ import kotlin.random.Random
 fun ShowTasksList(tasks: List<Task>) {
 
     LazyColumn(modifier = Modifier
-        .fillMaxWidth()
-        .clip(Shapes.small)) {
+        .fillMaxWidth()) {
         items(tasks) {
             Card(
-                modifier = Modifier.padding(8.dp)
+                modifier = Modifier
                     .requiredHeight(50.dp)
+//                    .background(MaterialTheme.colors.background)
 
                 ,
                 elevation = 5.dp,
-                shape = MaterialTheme.shapes.medium
+                shape = MaterialTheme.shapes.medium,
+                backgroundColor = MaterialTheme.colors.background
             ) {
                 ItemTaskList(task = it)
             }
 
-//            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(8.dp))
         }
 
     }
@@ -83,8 +85,8 @@ fun Check() {
 }
 
 
-@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TaskPreview() {
     val tasks = mutableListOf<Task>()

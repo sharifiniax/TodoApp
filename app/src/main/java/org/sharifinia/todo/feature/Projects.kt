@@ -41,76 +41,158 @@ fun Projects(
 ) {
 
 
-    LazyRow(Modifier.padding(8.dp)) {
-        items(tasks.slice(1..2)) { item ->
-            Card(
-                modifier = Modifier
-                    .defaultMinSize(150.dp, 200.dp)
-                    , elevation = 5.dp, shape = MaterialTheme.shapes.small
-            ) {
-                val cat = cats.first { item.ownerCategoryId == it.categoryId }
-                val color = cat.color
-                val catName = cat.name
-                val totalTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.size
-                val doneTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.filter { it.done }.size
-                val percentage = doneTasks*100F/totalTasks
-                val arc = percentage *360F/100F
-                Column(
-                    Modifier
-                        .padding(16.dp)
-                        .size(150.dp, 220.dp)
-                   ) {
-                    Canvas(
-                        modifier = Modifier
-                            .size(45.dp)
+    Row {
+        Column(modifier = Modifier.weight(1F)) {
+            tasks[0].let { item ->
+                Card(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .defaultMinSize(150.dp, 200.dp)
+                    , elevation = 5.dp, shape = MaterialTheme.shapes.small,
+                    backgroundColor = MaterialTheme.colors.background
+                ) {
+                    val cat = cats.first { item.ownerCategoryId == it.categoryId }
+                    val color = cat.color
+                    val catName = cat.name
+                    val totalTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.size
+                    val doneTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.filter { it.done }.size
+                    val percentage = doneTasks*100F/totalTasks
+                    val arc = percentage *360F/100F
+                    Column(
+                        Modifier
+                            .padding(16.dp)
+                            .size(150.dp, 220.dp)
                     ) {
-                        val radius = size.minDimension / 2
-                        val rate = 0.4F
-                        drawCircle(
-                            color = EColor.convertColor(color,500) ,
-                            radius = radius,
-                            center = Offset(x = radius, y = radius),
-                            style = Stroke(5F)
-                        )
-                        drawArc(
-                            color = EColor.convertColor(color,200),
-                            -90F, arc,
-                            topLeft = Offset(
-                                x = rate * radius / 2,
-                                y = rate * radius / 2
-                            ),
-                            useCenter = true,
-                            size = Size(
-                                (2 - rate) * radius,
-                                (2 - rate) * radius
+                        Canvas(
+                            modifier = Modifier
+                                .size(45.dp)
+                        ) {
+                            val radius = size.minDimension / 2
+                            val rate = 0.4F
+                            drawCircle(
+                                color = EColor.convertColor(color,500) ,
+                                radius = radius,
+                                center = Offset(x = radius, y = radius),
+                                style = Stroke(5F)
+                            )
+                            drawArc(
+                                color = EColor.convertColor(color,200),
+                                -90F, arc,
+                                topLeft = Offset(
+                                    x = rate * radius / 2,
+                                    y = rate * radius / 2
+                                ),
+                                useCenter = true,
+                                size = Size(
+                                    (2 - rate) * radius,
+                                    (2 - rate) * radius
+                                )
+
                             )
 
-                        )
 
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(text = catName,
+                            style = MaterialTheme.typography.body1,
+                            color = EColor.convertColor(color,200)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        //TODO('Text base title in task element')
+                        Text(text = "item title in ruth package.",
+                            style = MaterialTheme.typography.h5,
+                            maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { /*TODO('create base calendar')*/ }, colors = ButtonDefaults.buttonColors(backgroundColor = EColor.convertColor(color))) {
+                            Text(text = "TODAY")
+                        }
 
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    Text(text = catName,
-                        style = MaterialTheme.typography.body1,
-                        color = EColor.convertColor(color,200)
-                        )
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Text(text = "item title in ruth package.",
-                        style = MaterialTheme.typography.h5,
-                        maxLines = 2, overflow = TextOverflow.Ellipsis)
-                    Spacer(modifier = Modifier.height(16.dp))
-                    Button(onClick = { /*TODO('create base calendar')*/ }, colors = ButtonDefaults.buttonColors(backgroundColor = EColor.convertColor(color))) {
-                        Text(text = "TODAY")
-                    }
-
+                    Spacer(modifier = Modifier.width(8.dp))
                 }
-
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.width(16.dp))
             }
-            Spacer(modifier = Modifier.width(16.dp))
         }
+        Column(modifier = Modifier.weight(1F)) {
+            tasks[1].let { item ->
+                Card(
+                    modifier = Modifier
+                        .padding(2.dp)
+                        .defaultMinSize(150.dp, 200.dp),
+                    elevation = 5.dp, shape = MaterialTheme.shapes.small,
+                    backgroundColor = MaterialTheme.colors.background
+
+                ) {
+                    val cat = cats.first { item.ownerCategoryId == it.categoryId }
+                    val color = cat.color
+                    val catName = cat.name
+                    val totalTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.size
+                    val doneTasks = tasks.filter { it.ownerCategoryId == cat.categoryId }.filter { it.done }.size
+                    val percentage = doneTasks*100F/totalTasks
+                    val arc = percentage *360F/100F
+                    Column(
+                        Modifier
+                            .padding(16.dp)
+                            .size(150.dp, 220.dp)
+                    ) {
+                        Canvas(
+                            modifier = Modifier
+                                .size(45.dp)
+                        ) {
+                            val radius = size.minDimension / 2
+                            val rate = 0.4F
+                            drawCircle(
+                                color = EColor.convertColor(color,500) ,
+                                radius = radius,
+                                center = Offset(x = radius, y = radius),
+                                style = Stroke(5F)
+                            )
+                            drawArc(
+                                color = EColor.convertColor(color,200),
+                                -90F, arc,
+                                topLeft = Offset(
+                                    x = rate * radius / 2,
+                                    y = rate * radius / 2
+                                ),
+                                useCenter = true,
+                                size = Size(
+                                    (2 - rate) * radius,
+                                    (2 - rate) * radius
+                                )
+
+                            )
+
+
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(text = catName,
+                            style = MaterialTheme.typography.body1,
+                            color = EColor.convertColor(color,200)
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        //TODO('Text base title in task element')
+                        Text(text = "item title in ruth package.",
+                            style = MaterialTheme.typography.h5,
+                            maxLines = 2, overflow = TextOverflow.Ellipsis)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { /*TODO('create base calendar')*/ }, colors = ButtonDefaults.buttonColors(backgroundColor = EColor.convertColor(color))) {
+                            Text(text = "TODAY")
+                        }
+
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+                Spacer(modifier = Modifier.width(16.dp))
+            }
+        }
+
+
 
 
     }
@@ -119,7 +201,7 @@ fun Projects(
 }
 
 
-@Preview
+@Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun JPreview() {

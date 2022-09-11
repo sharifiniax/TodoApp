@@ -1,8 +1,11 @@
-package org.sharifinia.todo.features
+package org.sharifinia.todo.feature
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -23,18 +26,30 @@ import kotlin.random.nextUInt
 @Composable
 fun Statistics(cats: List<CategoryWithTasks>) {
 
-Card(modifier = Modifier.fillMaxWidth(),
-
+Card(
+        modifier = Modifier
+            .fillMaxWidth(),
+    elevation = 5.dp,
+    shape = MaterialTheme.shapes.small,
+    backgroundColor = MaterialTheme.colors.background
     ) {
     Column(modifier = Modifier.padding(8.dp)) {
 
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Graph(cats)
-            ListCategory(
-                cats
-            )
+            Column(Modifier.weight(1F)
+
+                ) {
+                Graph(cats)
+            }
+            Column(Modifier.weight(1F)) {
+                ListCategory(
+                    cats
+                )
+            }
+
+
 
         }
 
@@ -58,24 +73,28 @@ fun ListCategory(cats: List<CategoryWithTasks>) {
                     Canvas(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp)
-                            .size(6.dp)
+                            .size(8.dp)
                     ) {
-                        drawCircle(Color.Black)
+                        drawCircle(EColor.convertColor(item.category.color))
                     }
 
                     Text(text = item.category.name)
                 }
 
+                Spacer(modifier = Modifier.height(12.dp))
 
             }
         }
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Column() {
             for (item in cats) {
 
                 val done = item.tasks.filter { it.done }.size
                 Text(text = "${done * 100 / item.tasks.size}%")
+                Spacer(modifier = Modifier.height(12.dp))
             }
+
+
         }
     }
 
@@ -99,7 +118,7 @@ fun Graph(
     )
 }
 
-class Arc(val color: Color, val percentage: Float, val level: Float)
+data class Arc(val color: Color, val percentage: Float, val level: Float)
 
 
 
@@ -143,8 +162,8 @@ fun CircleGraph(arcs: List<Arc>) {
 
 }
 
-@Preview
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun GPreview() {
     val cats = mutableListOf<TodoCategory>()

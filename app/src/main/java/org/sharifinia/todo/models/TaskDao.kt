@@ -26,7 +26,6 @@ interface TaskDao {
     @Query("SELECT * FROM TodoCategory")
     fun getCategoriesWithTasks(): Flow<List<CategoryWithTasks>>
 
-
     @Update
     suspend fun updateTask(task:Task)
 
