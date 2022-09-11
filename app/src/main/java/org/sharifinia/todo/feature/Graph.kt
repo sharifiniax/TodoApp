@@ -121,8 +121,6 @@ fun Graph(
 data class Arc(val color: Color, val percentage: Float, val level: Float)
 
 
-
-
 @Composable
 fun CircleGraph(arcs: List<Arc>) {
 
