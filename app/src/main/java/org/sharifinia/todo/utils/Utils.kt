@@ -152,6 +152,52 @@ class Utils {
             }
 
         }
+
+        fun getListClock(hour: Int): List<Int> {
+
+            return if (hour == 12)
+            { listOf(1,2,3,4,5,6,7,8,9,10,11,12,1,2,3,4,5,6,7,8,9,10,11,12)}
+            else {
+                listOf(
+                    0,1,2,3,4,5,6,7,8,9,
+                    10,11,12,13,14,15,
+                    16,17,18,19,20,21,22,23
+                )
+            }
+        }
+        fun getDayWeekBrief(day: Int): String {
+
+
+            return when (day) {
+
+                0 -> {
+                    "Sat"
+                }
+                1 -> {
+                    "Sun"
+                }
+                2 -> {
+                    "Mon"
+                }
+                3 -> {
+                    "Tue"
+                }
+                4 -> {
+                    "Wed"
+                }
+                5 -> {
+                    "Thu"
+                }
+                6 -> {
+                    "Fri"
+                }
+
+                else -> {
+                    throw IllegalArgumentException()
+                }
+            }
+
+        }
         fun getPersianDayWeek(day: Int): String {
 
 
