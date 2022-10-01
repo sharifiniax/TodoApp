@@ -152,6 +152,46 @@ class Utils {
             }
 
         }
+        fun getDayWeekBrief(day: Int): String {
+
+
+            return when (day) {
+
+                0 -> {
+                    "Sat"
+                }
+                1 -> {
+                    "Sun"
+                }
+                2 -> {
+                    "Mon"
+                }
+                3 -> {
+                    "Tue"
+                }
+                4 -> {
+                    "Wed"
+                }
+                5 -> {
+                    "Thu"
+                }
+                6 -> {
+                    "Fri"
+                }
+
+                else -> {
+                    throw IllegalArgumentException()
+                }
+            }
+
+        }
+
+
+
+
+
+
+
         fun getPersianDayWeek(day: Int): String {
 
 
